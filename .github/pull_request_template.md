@@ -1,4 +1,4 @@
-﻿# Pull Request
+# Pull Request
 
 ## Summary
 
@@ -9,9 +9,10 @@
 - [ ] One logical change
 - [ ] PR description is brief and accurate
 - [ ] Tests added or updated for behavior changes
-- [ ] `dotnet format` run on changed files
+- [ ] Formatting checked on changed files
+- [ ] Relevant typecheck, lint, tests, and build completed; skipped or inapplicable checks explained
 - [ ] No secrets, private URLs, or sensitive data committed
-- [ ] Local development secrets, if any, are stored in user secrets
+- [ ] Local development secrets, if any, are kept out of tracked files and supplied through the project's supported local secret configuration
 
 ## Related work
 

@@ -1,4 +1,4 @@
-﻿# AI_REVIEW.md - Pull request and general code change review checklist
+# AI_REVIEW.md - Pull request and general code change review checklist
 
 Use this checklist before proposing or accepting code changes.
 
@@ -21,33 +21,33 @@ Use this checklist before proposing or accepting code changes.
 * confirm sensitive data is not logged, exposed, or copied into examples or tests
 * confirm configuration changes are safe for local, CI, and production use
 
-## Blazor and component rules
+## JavaScript, TypeScript, and UI rules
 
-* confirm component parameters are auto-properties only
-* confirm component parameters are not set through `@ref`
-* confirm existing MudBlazor and Blazor patterns are preserved unless a change is required
-* confirm accessibility remains intact, including keyboard support and ARIA expectations
+* confirm the existing framework, runtime, module system, and package manager are preserved unless the task requires a change
+* confirm compiler and build configuration fit the actual runtime and framework
+* confirm component, state, lifecycle, and styling patterns fit the existing project without unnecessary architecture additions
+* confirm accessibility remains intact for interactive UI, including keyboard support and ARIA expectations
 
 ## Testing
 
 * confirm a focused test was added or updated when behavior changed
-* confirm tests use bUnit, xUnit, and AwesomeAssertions patterns already used in the repo
-* confirm tests avoid cached element references across interactions
-* confirm tests use async interaction helpers where applicable
+* confirm tests use the repository's existing runner, assertions, and framework test utilities
+* confirm UI tests re-query elements after interactions where references can become stale
+* confirm tests await async operations and use async interaction helpers where applicable
 * confirm tests do not use unnecessary delays or brittle timing
 * confirm test names follow repo naming conventions
 
 ## Code quality
 
 * confirm the diff is minimal and readable
-* confirm XML `<summary>` docs exist for new public APIs
+* confirm JSDoc/TSDoc exists for new exported APIs
 * confirm no warnings were suppressed to force success
 * confirm no unnecessary dependencies were introduced
-* confirm hard-coded colors were not added
+* confirm hard-coded colors were not added to interactive UI
 
 ## Verification
 
-* confirm any suggested commands are targeted to the affected project, not the whole solution, unless explicitly requested
+* confirm any suggested commands are targeted to the affected package or app, not the whole workspace, unless explicitly requested
 * confirm formatting guidance is scoped to changed files when possible
 * confirm the consumer is told about any critical problems that were found
 

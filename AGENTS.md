@@ -13,22 +13,22 @@ Follow this file as the primary instruction source. User requests and nested `AG
 
 ### Do
 
-* default to TDD when behavior changes
-* target verification by default; broader verification is justified by shared build settings, dependencies, solution wiring, or cross-project changes
-* keep changes small and targeted
+* keep changes and additions minimal; do not expand architecture any more than is absolutely necessary
+* use TDD for behavior changes: start with a failing test
+* target verification by default; broader verification is justified by shared build settings, dependencies, workspace wiring, or cross-package changes
 * prefer existing patterns over introducing new abstractions
-* follow the applicable EditorConfig settings (`src/.editorconfig` covers files beneath `src/` in this starter)
+* follow the applicable EditorConfig settings (`.editorconfig` covers the repository in this starter)
 * add file headers only when the applicable EditorConfig defines a `file_header_template`; do not invent ownership or licensing text
 * treat all application, user, staff, and internal data as sensitive
-* add XML `<summary>` docs for all public properties, classes, and methods
+* add JSDoc/TSDoc for exported APIs
 * preserve keyboard navigation and accessible naming for interactive UI
-* ensure all output meets ARIA accessibility standards
+* ensure interactive UI output meets ARIA accessibility standards
 
 ### Don't
 
 * do not run broad validation without a shared-change justification
 * do not commit secrets, tokens, passwords, certificates, private URLs, or real connection strings
-* do not put secrets in tracked `appsettings*.json`, tests, docs, or examples
+* do not put secrets in tracked configuration files, tests, docs, or examples
 * do not circumvent, weaken, reinterpret, or work around the [External database boundary](#external-database-boundary), directly or indirectly
 * do not add dependencies without approval
 * do not suppress warnings to get a build through
@@ -64,12 +64,12 @@ Use the project map's verified command prerequisites and run commands from repos
 * Code must satisfy the review requirements in `AI_REVIEW.md` in addition to `AGENTS.md` before submission
 * Address review feedback and repeat until review notes are resolved unless the user explicitly directs otherwise
 
-## Blazor and UI rules
+## JavaScript, TypeScript, and UI rules
 
-* Component parameters must be auto-properties only.
-* Do not set component parameters via `@ref`.
-* Use `ParameterState<T>` for parameter update flows where applicable.
-* Use `CssBuilder` and CSS variables. Do not hard-code styles or colors without user approval.
+* Follow the project's existing framework, runtime, module system, package manager, and configuration. Do not add a framework or convert JavaScript to TypeScript as part of an unrelated task.
+* Preserve framework-generated compiler and build settings. For new TypeScript projects, keep strict type checking enabled; document intentional exceptions in `PROJECTS.md`.
+* Use the framework's existing component, state, lifecycle, and styling patterns. Do not introduce additional application layers or state libraries unless the task requires them.
+* Preserve keyboard navigation and accessible names for interactive UI. Use the project's existing styling tokens; do not hard-code styles or colors without user approval.
 
 ## Review and Escalation
 

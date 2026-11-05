@@ -1,10 +1,10 @@
-# dotnet-ai-setup
+# javascript-ai-setup
 
-An opinionated starting template for **AI-assisted .NET development**, focused on **Blazor, MudBlazor, and ASP.NET Core MVC**.
+An opinionated starting template for **AI-assisted JavaScript and TypeScript development**, covering **React, Angular, Vue, Svelte, Node.js, and other JavaScript-based projects**.
 
 Start a repository with a consistent set of instructions for how AI should work in your project: where code belongs, which conventions to follow, how to test changes, and what to check before calling the work complete.
 
-This is not a complete application or a `dotnet new` template. It provides the repository guidance and configuration that surround your application. You supply the project, its requirements, and its boundaries.
+This is not a complete application or a framework scaffolder. It provides the repository guidance and configuration that surround your application. You supply the project, its requirements, and its boundaries. Adapted from [MudXtra/dotnet-ai-setup](https://github.com/MudXtra/dotnet-ai-setup).
 
 ## Why use it?
 
@@ -12,25 +12,25 @@ AI works better when it does not have to rediscover your project or guess your e
 
 This template gives you a starting point for:
 
-- Keeping changes focused and consistent with your architecture.
+- Keeping changes and additions minimal, without expanding architecture any more than is absolutely necessary.
 - Giving AI the project paths and commands it needs to work with less supervision.
 - Following test-driven development for behavior changes.
 - Reviewing code for correctness, accessibility, security, and maintainability.
 - Keeping sensitive data and external databases outside ordinary AI development work.
 
-The defaults reflect the technologies and practices used by the author. They are intentionally opinionated—not an attempt to prescribe the right setup for every .NET project.
+The defaults reflect the technologies and practices used by the author. They are intentionally opinionated—not an attempt to prescribe the right setup for every JavaScript project.
 
 ## Getting started
 
 1. **Create your repository** and copy the starter files from this repository into it.
-2. **Create or add your application and test projects.** Use the solution structure that fits your application.
+2. **Create or add your application and tests.** Keep its existing framework and layout, or use the chosen framework’s supported starter for a new application. This template adds no application layers or runtime dependencies.
 3. **Configure `PROJECTS.md`** with your actual project paths, responsibilities, protected areas, and verification commands.
-4. **Review the defaults** in `AGENTS.md`, the test instructions, `src/.editorconfig`, and `Directory.Build.props`. Adapt them to your project before relying on them. This starter does not prescribe a file header; if your project requires one, configure `file_header_template` in the applicable EditorConfig after checking ownership and licensing.
-5. **Check configuration placement.** `Directory.Build.props` lives at repository root and supplies build defaults to projects beneath it, unless a nearer build configuration overrides discovery. `src/.editorconfig` applies only beneath `src/`, not to sibling test projects. If tests live outside `src/`, deliberately extend the editor settings to cover them (for example, by merging them into a root `.editorconfig`). Preserve existing configuration and update instruction paths if you relocate files.
-6. **Keep nullable and warnings-as-errors enabled for new projects; document intentional exceptions in `PROJECTS.md`.**
+4. **Review the defaults** in `AGENTS.md`, the test instructions, and `.editorconfig`. Adapt them to your project before relying on them. This starter does not prescribe a file header; if your project requires one, configure `file_header_template` in the applicable EditorConfig after checking ownership and licensing.
+5. **Preserve project configuration.** The root `.editorconfig` covers source, tests, and configuration; merge it with existing settings. Keep the application's own compiler, module, JSX, framework, and build configuration. This template deliberately supplies no universal `tsconfig.json`, bundler configuration, or `package.json`: settings suitable for a browser application may not suit a server or published library.
+6. **Keep strict type checking enabled for new TypeScript projects and fail on relevant lint errors; document intentional exceptions in `PROJECTS.md`.** Plain JavaScript projects remain JavaScript. Preserve the existing package manager and its lockfile, and record the actual runtime and framework versions.
 7. **Run your documented build and test commands**, then commit the configured starting point.
 
-You can ask AI to inspect your solution and draft `PROJECTS.md`. Review the result—especially project responsibilities, protected paths, and commands—before using it as the project map.
+You can ask AI to inspect your application or packages and draft `PROJECTS.md`. Review the result—especially project responsibilities, protected paths, and commands—before using it as the project map.
 
 ## What is included?
 
@@ -43,14 +43,22 @@ You can ask AI to inspect your solution and draft `PROJECTS.md`. Review the resu
 | `.github/copilot-instructions.md` | Directs GitHub Copilot to the shared repository guidance. |
 | `.github/instructions/tests.instructions.md` | Testing conventions and regression-test guidance. |
 | `.github/pull_request_template.md` | A consistent structure for describing and checking changes. |
-| `src/.editorconfig` | Formatting and code-style preferences for files beneath `src/`. |
-| `Directory.Build.props` | Shared .NET build settings for projects within its scope. |
-| `.gitignore` and `.gitattributes` | Source-control defaults for .NET development. |
+| `.editorconfig` | Formatting preferences for source, tests, and configuration. |
+| `.gitignore` and `.gitattributes` | Source-control defaults for JavaScript and TypeScript development. |
 
-### Choosing an assertion library
-AwesomeAssertions is the default. A project choosing Shouldly must update the default in `.github/instructions/tests.instructions.md` and `AI_REVIEW.md`, add the selected library via its normal dependency workflow, and keep one consistent default per test project.
+### One shared setup, framework-specific tools
 
-The testing guidance favors **xUnit**, **bUnit for Blazor component tests**, and **AwesomeAssertions**. Adapt it to the frameworks your project actually uses; MVC tests do not require bUnit.
+The shared instructions apply across JavaScript technologies. `PROJECTS.md` records what the actual project uses; framework-specific guidance applies only when that technology is present. A shared instruction template does not mean a single compiler configuration or test command works for every framework.
+
+| Project | How to apply the shared guidance |
+| --- | --- |
+| React, Next.js, React Native | Preserve the existing React/framework setup, component patterns, renderer, and test utilities. |
+| Angular | Preserve Angular CLI/compiler configuration and the configured Angular test entry point and utilities. |
+| Vue, Nuxt, Svelte, SvelteKit | Preserve the framework's compiler, component tooling, and test setup. |
+| Node.js, other server runtimes, or libraries | Follow the actual runtime, module system, package exports, and existing test runner. |
+| Plain JavaScript or TypeScript | Keep the chosen language; apply TypeScript-specific rules only where TypeScript is used. |
+
+Use the existing test runner and assertions. Vitest with its built-in assertions is an option for a new compatible project, not a required migration. Likewise, preserve existing lint and formatting tools rather than adding a second toolchain. See the [React setup guide](https://react.dev/learn/build-a-react-app-from-scratch), [Angular testing guide](https://angular.dev/guide/testing), and [TypeScript configuration reference](https://www.typescriptlang.org/tsconfig/) for technology-specific configuration.
 
 ## Make `PROJECTS.md` yours
 
@@ -58,7 +66,8 @@ The testing guidance favors **xUnit**, **bUnit for Blazor component tests**, and
 
 Replace every placeholder with useful project information:
 
-- The solution and relevant project paths.
+- The application/package paths and workspace structure, if any.
+- The language, framework, runtime, module system, package manager, and relevant configuration paths.
 - What belongs in each project.
 - Areas that require explicit permission to change.
 - Which test projects cover the affected code.

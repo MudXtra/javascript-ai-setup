@@ -1,37 +1,33 @@
 ---
-applyTo: "**/*Tests.cs,**/*Test.cs,**/*.Tests/**/*.cs,**/tests/**/*.cs,**/test/**/*.cs"
+applyTo: "**/*.test.{js,jsx,ts,tsx,mjs,cjs,mts,cts},**/*.spec.{js,jsx,ts,tsx,mjs,cjs,mts,cts},**/{tests,test,__tests__}/**/*.{js,jsx,ts,tsx,mjs,cjs,mts,cts}"
 ---
 # Test instructions
 
 Use these rules for test work. Keep tests small, deterministic, and behavior-focused.
 
-Defaults below are for common .NET test stacks. If a repository uses a different stack, use the repo's existing framework and conventions unless they conflict with these instructions.
+Use the repository's existing runner, assertions, and framework test utilities. Vitest with its built-in assertions is a starting option for a new project when compatible with its framework; do not replace an existing test stack or add test dependencies without approval.
 
 ## Do / Don't (Read First)
 
 ### Do
-- default to xUnit for test execution
-- default to bUnit for Blazor component and Razor page tests
-- default to AwesomeAssertions for assertions, do not use FluentAssertions or other assertion libraries without approval
-- keep tests in the test project path defined in `PROJECTS.md`
-- use bUnit when testing rendered markup, parameters, cascading values, user interaction, validation messages, event callbacks, or conditional UI
-- use plain unit tests when logic can be tested without rendering a component
+- keep tests in the paths defined in `PROJECTS.md`; preserve colocated tests or existing test directories
+- use plain unit tests for logic and framework test utilities for components, routing, rendering, or framework-managed services
 - prefer the simplest test type that verifies the behavior
-- test observable behavior through rendered output and callbacks, not component internals
-- re-query DOM elements after interactions
-- use `InvokeAsync()` for parameter changes and component method calls
-- prefer async bUnit interactions such as `ClickAsync`, `ChangeAsync`, `BlurAsync`, and `InputAsync`
-- register only the minimal required services in the test context
-- mock or fake JavaScript interop, navigation, time, and external services as needed
+- test observable output, interactions, and results, not framework or component internals
+- re-query DOM elements after interactions where references can become stale
+- use the framework's renderer or change-detection helpers where required
+- await async operations and prefer async interaction helpers where applicable
+- register only the minimal required test doubles
+- mock or fake network clients, navigation, time, and external services as needed
 - prefer targeted assertions on text, attributes, enabled or disabled state, validation messages, CSS classes, and callback results
-- prefer extracting complex UI logic into plain C# services or helpers so behavior can be covered with unit tests before adding bUnit coverage
-- default to TDD when behavior changes
+- use TDD for behavior changes: start with a failing test
 - keep tests isolated and deterministic
-- prefer `TimeProvider` or `FakeTimeProvider`; avoid `Task.Delay` and use time-controlled or event-driven waits/assertions instead
+- use the runner's fake timers or event-driven gates instead of fixed sleeps
+- restore mocks, timers, and environment changes after each test
 - ensure test names clearly describe the behavior being verified
 
 ### Don't
-- do not create a separate Razor test project unless repository structure or maintainability requires it
+- do not create a separate test package unless repository structure or maintainability requires it
 - do not use broad snapshot assertions when targeted assertions are enough
 - do not test third-party library internals directly
 - do not use live network calls, real external services, or unnecessary filesystem access
@@ -42,12 +38,7 @@ Defaults below are for common .NET test stacks. If a repository uses a different
 
 ## Test project structure
 
-- Organize tests by feature or type, for example:
-  - `Components/`
-  - `Pages/`
-  - `Services/`
-  - `Utilities/`
-  - `TestDoubles/`
+Use colocated tests or the existing test directory recorded in `PROJECTS.md`. Do not introduce additional layers just to organize tests.
 
 ## Regression testing
 
@@ -59,4 +50,4 @@ Defaults below are for common .NET test stacks. If a repository uses a different
 
 ## Verification
 
-Use `PROJECTS.md` for project-specific verification paths and commands.
+Use `PROJECTS.md` for project-specific verification paths and commands. Runner flags differ: do not pass Vitest flags to Angular CLI, Jest, or another runner without checking the configured command.
